@@ -19,6 +19,7 @@ export class ButtonComponent {
   @Input() loading: boolean = false;
   @Input() href?: string | null = null;
   @Input() target: string = '_self';
+  @Input() download?: string | boolean | null = null;
   @Input() iconLeft?: string;
   @Input() iconRight?: string;
   @Input() ariaLabel?: string;

@@ -1,6 +1,7 @@
 <a
   [href]="href && !disabled ? href : null"
   [target]="href ? target : null"
+  [attr.download]="download !== null && download !== undefined ? download : null"
   [rel]="target === '_blank' ? 'noopener noreferrer' : null"
   [attr.aria-label]="ariaLabel"
   [attr.role]="href ? null : 'button'"
