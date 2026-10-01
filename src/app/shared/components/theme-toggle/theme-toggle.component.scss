@@ -1,0 +1,27 @@
+@use 'styles/index' as *;
+
+:host {
+  display: inline-block;
+}
+
+.theme-toggle-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: $radius-md;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  font-size: 18px;
+  transition: all $duration-fast ease;
+
+  &:hover {
+    background-color: var(--bg-surface-hover);
+    border-color: var(--border-subtle);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}

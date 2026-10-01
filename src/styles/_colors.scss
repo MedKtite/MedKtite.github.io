@@ -1,0 +1,141 @@
+// ==============================================================================
+// Color Tokens & Theme Configuration (Exact Figma Specs)
+// ==============================================================================
+
+// Static Figma Primitive Colors
+$color-green-500: #10b981;
+$color-green-400: #34d399;
+$color-green-600: #059669;
+
+// Dark Palette
+$dark-bg-page: #0a0a0a;
+$dark-bg-surface: #121212;
+$dark-bg-surface-hover: #1a1a1a;
+$dark-bg-surface-subtle: #151515;
+$dark-border-default: #262626;
+$dark-border-subtle: #1e1e1e;
+$dark-text-primary: #f5f5f5;
+$dark-text-strong: #ffffff;
+$dark-text-secondary: #a3a3a3;
+$dark-text-muted: #6b6b68;
+$dark-btn-primary-bg: #f5f5f5;
+$dark-btn-primary-text: #0a0a0a;
+$dark-btn-primary-hover: #ffffff;
+$dark-btn-secondary-bg: #121212;
+$dark-btn-secondary-border: #262626;
+$dark-btn-secondary-text: #f5f5f5;
+$dark-input-bg: #121212;
+$dark-input-border: #262626;
+$dark-input-placeholder: #94a3b8;
+$dark-progress-track: #262626;
+$dark-progress-fill: #f1f1ef;
+
+// Light Palette
+$light-bg-page: #f7f7f5;
+$light-bg-surface: #ffffff;
+$light-bg-surface-hover: #f3f4f6;
+$light-bg-surface-subtle: #f1f1ef;
+$light-border-default: #d9d9d6;
+$light-border-subtle: #e5e7eb;
+$light-text-primary: #121212;
+$light-text-strong: #000000;
+$light-text-secondary: #525250;
+$light-text-muted: #6b7280;
+$light-btn-primary-bg: #111827;
+$light-btn-primary-text: #ffffff;
+$light-btn-primary-hover: #1f2937;
+$light-btn-secondary-bg: #f1f1ef;
+$light-btn-secondary-border: #d9d9d6;
+$light-btn-secondary-text: #121212;
+$light-input-bg: #ffffff;
+$light-input-border: #d9d9d6;
+$light-input-placeholder: #6b7280;
+$light-progress-track: #d9d9d6;
+$light-progress-fill: #121212;
+
+// CSS Custom Properties Definition
+:root {
+  // Common
+  --accent-primary: #{$color-green-500};
+  --accent-primary-hover: #{$color-green-400};
+  --accent-glow: rgba(16, 185, 129, 0.25);
+  --accent-subtle: rgba(16, 185, 129, 0.1);
+
+  // Default: Dark Theme (as specified in Figma primary view)
+  --bg-page: #{$dark-bg-page};
+  --bg-surface: #{$dark-bg-surface};
+  --bg-surface-hover: #{$dark-bg-surface-hover};
+  --bg-surface-subtle: #{$dark-bg-surface-subtle};
+  --border-default: #{$dark-border-default};
+  --border-subtle: #{$dark-border-subtle};
+  
+  --text-primary: #{$dark-text-primary};
+  --text-strong: #{$dark-text-strong};
+  --text-secondary: #{$dark-text-secondary};
+  --text-muted: #{$dark-text-muted};
+
+  --btn-primary-bg: #{$dark-btn-primary-bg};
+  --btn-primary-text: #{$dark-btn-primary-text};
+  --btn-primary-hover: #{$dark-btn-primary-hover};
+  --btn-secondary-bg: #{$dark-btn-secondary-bg};
+  --btn-secondary-border: #{$dark-btn-secondary-border};
+  --btn-secondary-text: #{$dark-btn-secondary-text};
+
+  --input-bg: #{$dark-input-bg};
+  --input-border: #{$dark-input-border};
+  --input-text: #{$dark-text-primary};
+  --input-placeholder: #{$dark-input-placeholder};
+
+  --progress-track: #{$dark-progress-track};
+  --progress-fill: #{$dark-progress-fill};
+
+  --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+  --card-shadow-hover: 0 12px 30px -4px rgba(0, 0, 0, 0.6);
+
+  // Header Glassmorphism Tokens
+  --header-bg: transparent;
+  --header-border: transparent;
+  --header-bg-scrolled: rgba(10, 10, 10, 0.78);
+  --header-border-scrolled: rgba(255, 255, 255, 0.08);
+  --header-shadow-scrolled: 0 4px 24px -2px rgba(0, 0, 0, 0.45);
+}
+
+// Light Mode explicitly activated via [data-theme="light"]
+[data-theme="light"] {
+  --bg-page: #{$light-bg-page};
+  --bg-surface: #{$light-bg-surface};
+  --bg-surface-hover: #{$light-bg-surface-hover};
+  --bg-surface-subtle: #{$light-bg-surface-subtle};
+  --border-default: #{$light-border-default};
+  --border-subtle: #{$light-border-subtle};
+
+  --text-primary: #{$light-text-primary};
+  --text-strong: #{$light-text-strong};
+  --text-secondary: #{$light-text-secondary};
+  --text-muted: #{$light-text-muted};
+
+  --btn-primary-bg: #{$light-btn-primary-bg};
+  --btn-primary-text: #{$light-btn-primary-text};
+  --btn-primary-hover: #{$light-btn-primary-hover};
+  --btn-secondary-bg: #{$light-btn-secondary-bg};
+  --btn-secondary-border: #{$light-btn-secondary-border};
+  --btn-secondary-text: #{$light-btn-secondary-text};
+
+  --input-bg: #{$light-input-bg};
+  --input-border: #{$light-input-border};
+  --input-text: #{$light-text-primary};
+  --input-placeholder: #{$light-input-placeholder};
+
+  --progress-track: #{$light-progress-track};
+  --progress-fill: #{$light-progress-fill};
+
+  --card-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: 0 12px 24px -4px rgba(0, 0, 0, 0.08);
+
+  // Header Glassmorphism Tokens
+  --header-bg: transparent;
+  --header-border: transparent;
+  --header-bg-scrolled: rgba(247, 247, 245, 0.85);
+  --header-border-scrolled: rgba(0, 0, 0, 0.08);
+  --header-shadow-scrolled: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
+}

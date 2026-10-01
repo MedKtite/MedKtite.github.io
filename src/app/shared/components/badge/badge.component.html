@@ -1,0 +1,15 @@
+<span
+  class="badge app-badge app-badge--{{ variant }}"
+  [class.app-badge--interactive]="interactive"
+>
+  @if (icon) {
+    <i class="badge-icon {{ icon }}" aria-hidden="true"></i>
+  }
+  <span class="badge-text">
+    @if (label) {
+      {{ label }}
+    } @else {
+      <ng-content></ng-content>
+    }
+  </span>
+</span>

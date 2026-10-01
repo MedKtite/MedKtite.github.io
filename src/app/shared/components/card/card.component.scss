@@ -1,0 +1,63 @@
+@use 'styles/index' as *;
+
+:host {
+  display: block;
+}
+
+.app-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--card-shadow);
+  transition: transform $duration-normal $ease-spring,
+              border-color $duration-fast ease,
+              box-shadow $duration-normal $ease-spring,
+              background-color $duration-normal ease;
+  overflow: hidden;
+
+  // --- Radius variants ---
+  &--rad-sm {
+    border-radius: $radius-sm;
+  }
+  &--rad-md {
+    border-radius: $radius-md;
+  }
+  &--rad-lg {
+    border-radius: $radius-lg;
+  }
+  &--rad-xl {
+    border-radius: $radius-xl;
+  }
+  &--rad-2xl {
+    border-radius: $radius-2xl;
+  }
+
+  // --- Padding variants ---
+  &--pad-none {
+    padding: 0;
+  }
+  &--pad-sm {
+    padding: $space-md; // 16px
+  }
+  &--pad-md {
+    padding: $space-lg; // 20px
+  }
+  &--pad-lg {
+    padding: $space-xl; // 24px
+  }
+
+  // --- Hoverable ---
+  &--hoverable:hover {
+    border-color: var(--border-subtle);
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  // --- Clickable ---
+  &--clickable {
+    cursor: pointer;
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}

@@ -1,0 +1,76 @@
+@use 'styles/index' as *;
+
+:host {
+  display: inline-block;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-xs;
+  height: 28px;
+  padding: 4px 14px;
+  border-radius: $radius-full;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  user-select: none;
+  transition: border-color $duration-fast ease, background-color $duration-fast ease;
+
+  &:hover {
+    border-color: var(--border-subtle);
+  }
+
+  .status-dot-wrapper {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: $radius-full;
+    background-color: var(--accent-primary);
+    position: relative;
+    z-index: 2;
+  }
+
+  .status-dot-ring {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: $radius-full;
+    background-color: var(--accent-primary);
+    opacity: 0.75;
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    z-index: 1;
+  }
+
+  .status-label {
+    font-family: $font-serif;
+    font-size: $text-xs;
+    font-weight: $font-weight-light;
+    line-height: $lh-normal;
+    color: var(--text-muted);
+  }
+
+  // --- Variants ---
+  &--busy {
+    .status-dot,
+    .status-dot-ring {
+      background-color: #f59e0b; // Amber
+    }
+  }
+
+  &--offline {
+    .status-dot,
+    .status-dot-ring {
+      background-color: #6b7280; // Gray
+      animation: none;
+    }
+  }
+}

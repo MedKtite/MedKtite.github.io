@@ -1,0 +1,33 @@
+@use 'styles/index' as *;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.section-header {
+  width: 100%;
+  margin-bottom: $space-2xl;
+
+  &--bordered {
+    padding-bottom: $space-md;
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  &__eyebrow {
+    @include eyebrow;
+  }
+
+  &__title {
+    @include heading-section;
+    margin-top: $space-sm;
+  }
+
+  &__subtitle {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: $font-weight-light;
+    color: var(--text-secondary);
+    margin-top: $space-xs;
+  }
+}

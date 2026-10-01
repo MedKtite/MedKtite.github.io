@@ -1,0 +1,8 @@
+<div
+  class="app-card app-card--pad-{{ padding }} app-card--rad-{{ radius }} {{ customClass }}"
+  [class.app-card--hoverable]="hoverable"
+  [class.app-card--clickable]="clickable"
+  (click)="onClick($event)"
+>
+  <ng-content></ng-content>
+</div>

@@ -1,0 +1,160 @@
+/* ==============================================================================
+   Global Styles & Base Reset (Figma Portfolio Theme)
+   ============================================================================== */
+
+@use "styles/variables" as *;
+@use "styles/colors";
+@use "styles/mixins" as *;
+@use "styles/typography";
+
+// --- Smooth scrolling & body theme ---
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(62px + 1.5rem);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family: $font-sans;
+  font-weight: $font-weight-regular;
+  line-height: $lh-normal;
+  overflow-x: clip;
+  transition: background-color $duration-normal ease, color $duration-normal ease;
+}
+
+// Section anchor scroll offset to keep top headers visible below sticky navbar
+section[id],
+.section-block {
+  scroll-margin-top: calc(62px + 1.5rem);
+}
+
+// --- Text Selection ---
+::selection {
+  background-color: var(--accent-subtle);
+  color: var(--accent-primary);
+}
+
+// --- Scrollbar Styling ---
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-page);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: $radius-full;
+
+  &:hover {
+    background: var(--text-muted);
+  }
+}
+
+// --- Bootstrap Overrides & Theme Integration ---
+.container {
+  max-width: 980px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color $duration-fast ease;
+
+  &:hover {
+    color: var(--text-primary);
+  }
+}
+
+// Bootstrap Form Controls (Themed)
+.form-control {
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  border-radius: $radius-xl;
+  padding: 12px 18px;
+  font-family: $font-sans;
+  font-size: 14px;
+  font-weight: $font-weight-light;
+  transition: border-color $duration-fast ease, box-shadow $duration-fast ease;
+
+  &::placeholder {
+    color: var(--input-placeholder);
+    opacity: 1;
+  }
+
+  &:focus {
+    background-color: var(--input-bg);
+    border-color: var(--accent-primary);
+    color: var(--input-text);
+    box-shadow: 0 0 0 2px var(--accent-subtle);
+  }
+}
+
+// Bootstrap Progress Bars (Themed)
+.progress {
+  background-color: var(--progress-track);
+  border-radius: $radius-full;
+  overflow: hidden;
+
+  .progress-bar {
+    background-color: var(--progress-fill);
+    border-radius: $radius-full;
+    transition: width 1s ease-in-out;
+  }
+}
+
+// Bootstrap Primary Button (Themed)
+.btn-primary {
+  --bs-btn-bg: var(--btn-primary-bg);
+  --bs-btn-border-color: var(--btn-primary-bg);
+  --bs-btn-color: var(--btn-primary-text);
+  --bs-btn-hover-bg: var(--btn-primary-hover);
+  --bs-btn-hover-border-color: var(--btn-primary-hover);
+  --bs-btn-hover-color: var(--btn-primary-text);
+  --bs-btn-active-bg: var(--btn-primary-hover);
+  --bs-btn-active-border-color: var(--btn-primary-hover);
+  --bs-btn-active-color: var(--btn-primary-text);
+  --bs-btn-disabled-bg: var(--btn-primary-bg);
+  --bs-btn-disabled-border-color: var(--btn-primary-bg);
+  --bs-btn-disabled-color: var(--btn-primary-text);
+  background-color: var(--btn-primary-bg) !important;
+  border-color: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-text) !important;
+  border-radius: $radius-xl;
+  font-family: $font-sans;
+  font-weight: $font-weight-medium;
+}
+
+// --- Keyframes ---
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

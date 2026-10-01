@@ -1,0 +1,76 @@
+// ==============================================================================
+// SCSS Mixins & Helpers (Trimmed - Layout/Flex/Breakpoints handled by Bootstrap)
+// ==============================================================================
+@use 'variables' as *;
+
+// --- Card Surface ---
+@mixin card-surface($radius: $radius-2xl, $padding: $space-xl) {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: $radius;
+  padding: $padding;
+  box-shadow: var(--card-shadow);
+  transition: transform $duration-normal $ease-spring,
+              border-color $duration-fast ease,
+              box-shadow $duration-normal $ease-spring;
+
+  &:hover {
+    border-color: var(--border-subtle);
+    box-shadow: var(--card-shadow-hover);
+  }
+}
+
+// --- Interactive States ---
+@mixin focus-ring {
+  outline: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
+}
+
+// --- Typography Presets ---
+@mixin eyebrow {
+  font-family: $font-serif;
+  font-size: $text-xs;
+  font-weight: $font-weight-light;
+  line-height: $lh-normal;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+@mixin heading-hero {
+  font-family: $font-sans;
+  font-size: $text-4xl;
+  font-weight: $font-weight-medium;
+  line-height: $lh-tight;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+@mixin heading-section {
+  font-family: $font-sans;
+  font-size: $text-2xl;
+  font-weight: $font-weight-medium;
+  line-height: $lh-snug;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+@mixin heading-card {
+  font-family: $font-sans;
+  font-size: $text-lg;
+  font-weight: $font-weight-medium;
+  line-height: $lh-snug;
+  color: var(--text-primary);
+}
+
+// --- Text Clamp & Ellipsis ---
+@mixin truncate-lines($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

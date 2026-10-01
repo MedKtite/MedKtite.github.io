@@ -1,0 +1,65 @@
+@use 'styles/index' as *;
+
+:host {
+  display: inline-block;
+}
+
+.app-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2xs;
+  height: 26px;
+  padding: 4px 10px;
+  border-radius: $radius-xs;
+  font-family: $font-sans;
+  font-weight: $font-weight-light;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  transition: all $duration-fast ease;
+
+  &--interactive {
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+  }
+
+  // --- Variants ---
+  &--default {
+    background-color: var(--bg-surface);
+    border-color: var(--border-default);
+    color: var(--text-secondary);
+
+    &:hover {
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+    }
+  }
+
+  &--outline {
+    background-color: transparent;
+    border-color: var(--border-default);
+    color: var(--text-secondary);
+  }
+
+  &--accent {
+    background-color: var(--accent-subtle);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: var(--accent-primary);
+  }
+
+  &--subtle {
+    background-color: var(--bg-surface-subtle);
+    border-color: transparent;
+    color: var(--text-secondary);
+  }
+
+  .badge-icon {
+    font-size: 13px;
+    line-height: 1;
+  }
+}

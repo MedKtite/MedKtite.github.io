@@ -1,0 +1,6 @@
+// ==============================================================================
+// Design System SCSS Entry Point (Zero-emission: only variables, functions, mixins)
+// Safe to @use in any component without duplicating CSS output.
+// ==============================================================================
+@forward 'variables';
+@forward 'mixins';

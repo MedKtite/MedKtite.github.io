@@ -1,0 +1,53 @@
+// ==============================================================================
+// Typography Styles & Utility Classes
+// ==============================================================================
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.font-sans {
+  font-family: $font-sans !important;
+}
+
+.font-serif {
+  font-family: $font-serif !important;
+}
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.heading-hero {
+  @include heading-hero;
+}
+
+.heading-section {
+  @include heading-section;
+}
+
+.heading-card {
+  @include heading-card;
+}
+
+.text-lead {
+  font-family: $font-sans;
+  font-size: $text-base;
+  font-weight: $font-weight-light;
+  line-height: $lh-relaxed;
+  color: var(--text-secondary);
+}
+
+.text-body {
+  font-family: $font-sans;
+  font-size: $text-sm;
+  font-weight: $font-weight-light;
+  line-height: $lh-normal;
+  color: var(--text-secondary);
+}
+
+.text-meta {
+  font-family: $font-serif;
+  font-size: $text-xs;
+  font-weight: $font-weight-light;
+  line-height: $lh-normal;
+  color: var(--text-muted);
+}

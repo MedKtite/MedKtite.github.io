@@ -1,0 +1,14 @@
+<header class="section-header" [class.section-header--bordered]="showBorder">
+  <div class="section-header__top d-flex align-items-center justify-content-between gap-3">
+    <span class="section-header__eyebrow">{{ eyebrow }}</span>
+    <div class="section-header__actions">
+      <ng-content select="[actions]"></ng-content>
+    </div>
+  </div>
+  @if (title) {
+    <h2 class="section-header__title">{{ title }}</h2>
+  }
+  @if (subtitle) {
+    <p class="section-header__subtitle">{{ subtitle }}</p>
+  }
+</header>

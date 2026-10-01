@@ -1,0 +1,13 @@
+<button
+  type="button"
+  class="btn theme-toggle-btn d-inline-flex align-items-center justify-content-center p-0"
+  (click)="toggle()"
+  [attr.aria-label]="themeService.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+  [title]="themeService.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+>
+  @if (themeService.isDark()) {
+    <i class="ph ph-sun" aria-hidden="true"></i>
+  } @else {
+    <i class="ph ph-moon" aria-hidden="true"></i>
+  }
+</button>

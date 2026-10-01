@@ -1,0 +1,502 @@
+<div class="portfolio-page">
+  <!-- ========================================================================= -->
+  <!-- 1. Header & Navigation (Glassmorphic sticky navbar)                       -->
+  <!-- ========================================================================= -->
+  <header class="app-header sticky-top" [class.app-header--scrolled]="isScrolled()">
+    <div class="container h-100 d-flex align-items-center justify-content-between">
+      <!-- Left side: Desktop Nav & Mobile Menu Toggle -->
+      <nav class="app-nav d-none d-md-flex align-items-center gap-4" aria-label="Main Navigation">
+        @for (link of navLinks; track link.href) {
+          <a
+            [href]="link.href"
+            class="nav-link"
+            (click)="onNavClick(link, $event)"
+          >
+            {{ link.label }}
+          </a>
+        }
+      </nav>
+
+      <!-- Mobile Menu Toggle Button (Left on mobile) -->
+      <button
+        type="button"
+        class="btn mobile-nav-toggle d-inline-flex d-md-none align-items-center justify-content-center p-0"
+        (click)="toggleMobileMenu()"
+        [attr.aria-label]="mobileMenuOpen() ? 'Close navigation menu' : 'Open navigation menu'"
+        [attr.aria-expanded]="mobileMenuOpen()"
+      >
+        <i [class]="mobileMenuOpen() ? 'ph ph-x' : 'ph ph-list'" aria-hidden="true"></i>
+      </button>
+
+      <!-- Right side: Theme Toggle + Hire Me -->
+      <div class="d-flex align-items-center gap-2 gap-sm-3">
+        <app-theme-toggle></app-theme-toggle>
+        <app-button
+          variant="primary"
+          size="sm"
+          href="#contact"
+          (click)="onNavClick({ label: 'Contact', href: '#contact' }, $event)"
+        >
+          Hire Me
+        </app-button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    @if (mobileMenuOpen()) {
+      <div class="mobile-nav-backdrop d-md-none" (click)="closeMobileMenu()"></div>
+      <div class="mobile-nav-drawer d-md-none" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+        <nav class="mobile-nav-list d-flex flex-column gap-1" aria-label="Mobile Navigation Links">
+          @for (link of navLinks; track link.href) {
+            <a
+              [href]="link.href"
+              class="mobile-nav-link d-flex align-items-center justify-content-between"
+              (click)="onMobileNavClick(link, $event)"
+            >
+              <span class="d-flex align-items-center gap-3">
+                @if (link.icon) {
+                  <i [class]="link.icon" class="mobile-nav-icon" aria-hidden="true"></i>
+                }
+                <span class="mobile-nav-text">{{ link.label }}</span>
+              </span>
+              <i class="ph ph-caret-right mobile-nav-arrow" aria-hidden="true"></i>
+            </a>
+          }
+        </nav>
+
+        <div class="mobile-nav-footer mt-3 pt-3 border-top d-flex align-items-center justify-content-between gap-3">
+          <div class="d-flex align-items-center gap-2">
+            <app-theme-toggle></app-theme-toggle>
+            <span class="mobile-nav-theme-label">Switch theme</span>
+          </div>
+          <app-button
+            variant="primary"
+            size="sm"
+            href="#contact"
+            (click)="onMobileNavClick({ label: 'Contact', href: '#contact' }, $event)"
+          >
+            Hire Me
+          </app-button>
+        </div>
+      </div>
+    }
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- Main Content Container (980px centered via Bootstrap container)           -->
+  <!-- ========================================================================= -->
+  <main class="container py-4 py-md-5 flex-grow-1">
+    <!-- ===================================================================== -->
+    <!-- 2. Hero Section                                                       -->
+    <!-- ===================================================================== -->
+    <section id="about" class="row flex-column-reverse flex-md-row align-items-start justify-content-between g-4 g-lg-5 pt-2 pt-md-4">
+      <div class="col-12 col-md-7 col-lg-8 d-flex flex-column gap-3">
+        <h1 class="hero-section__title">Mohammed Ktite</h1>
+
+        <div class="hero-section__role d-inline-flex align-items-center gap-2">
+          <i class="ph ph-terminal-window" aria-hidden="true"></i>
+          <span>Software Developer</span>
+        </div>
+
+        <p class="hero-section__bio">
+          As a Full-Stack and Mobile Developer, I bring a diverse skill set to the table, specializing in impactful digital experiences for the financial and B2B sectors. My passion lies in crafting robust applications that blend technical execution with strategic business goals. I am dedicated to continuous learning and growth, consistently leveraging modern technologies to solve complex challenges.
+        </p>
+
+        <div class="d-flex align-items-center gap-3 flex-wrap pt-2">
+          <app-button variant="primary" size="md" href="#contact">Hire Me</app-button>
+          <app-button
+            variant="secondary"
+            size="md"
+            iconLeft="ph ph-file-text"
+            href="https://github.com/MedKtite"
+            target="_blank"
+          >
+            Resume
+          </app-button>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-5 col-lg-4 d-flex justify-content-center justify-content-md-end">
+        <div class="avatar-ring">
+          <img
+            src="assets/profile-avatar.png"
+            alt="Mohammed Ktite"
+            class="avatar-img"
+            width="192"
+            height="192"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 3. Experience & Education Section                                     -->
+    <!-- ===================================================================== -->
+    <section id="experience" class="section-block">
+      <app-section-header eyebrow="EXPERIENCE & EDUCATION"></app-section-header>
+
+      <div class="row g-4 g-lg-5">
+        <!-- Left Column: Experience Timeline -->
+        <div class="col-12 col-lg-7 d-flex flex-column gap-4">
+          @for (exp of experiences; track exp.period) {
+            <div class="timeline-item d-flex gap-3 position-relative">
+              <div class="timeline-track d-flex flex-column align-items-center flex-shrink-0">
+                <span class="timeline-dot"></span>
+                <span class="timeline-line"></span>
+              </div>
+
+              <div class="timeline-content flex-grow-1 d-flex flex-column gap-2">
+                <span class="timeline-date">{{ exp.period }}</span>
+                <h3 class="timeline-title mb-0">{{ exp.role }}</h3>
+                <h4 class="timeline-company mb-0">{{ exp.company }}</h4>
+
+                <div class="d-flex flex-column gap-3 my-2">
+                  @for (proj of exp.projects; track proj.title) {
+                    <div>
+                      <h5 class="timeline-project-title mb-1">{{ proj.title }}</h5>
+                      <p class="timeline-project-desc mb-0">{{ proj.description }}</p>
+                    </div>
+                  }
+                </div>
+
+                <div class="d-flex flex-wrap gap-2 mt-1">
+                  @for (tag of exp.tags; track tag) {
+                    <app-badge [label]="tag" variant="default"></app-badge>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Right Column: Academic & Certifications -->
+        <div class="col-12 col-lg-5 d-flex flex-column gap-5">
+          <!-- Academic Degrees -->
+          <div>
+            <h3 class="sidebar-title mb-3">Academic</h3>
+
+            <div class="d-flex flex-column gap-4">
+              @for (deg of degrees; track deg.title) {
+                <div class="degree-card d-flex flex-column gap-1">
+                  <span class="degree-date">{{ deg.period }}</span>
+                  <h4 class="degree-title mb-0">{{ deg.title }}</h4>
+                  <span class="degree-school">{{ deg.institution }}</span>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Licenses & Certifications -->
+          <div>
+            <h3 class="sidebar-title mb-3">Licenses & Certifications</h3>
+
+            <div class="d-flex flex-column gap-3">
+              @for (cert of certifications; track cert.title) {
+                <div class="cert-card d-flex align-items-center gap-3">
+                  <div class="cert-logo-box flex-shrink-0 d-flex align-items-center justify-content-center">
+                    <img [src]="cert.logo" [alt]="cert.title" class="cert-logo" />
+                  </div>
+                  <div class="cert-info d-flex flex-column">
+                    <h4 class="cert-title mb-0">{{ cert.title }}</h4>
+                    <span class="cert-issuer">{{ cert.issuer }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 4. Projects Section                                                   -->
+    <!-- ===================================================================== -->
+    <section id="projects" class="section-block">
+      <app-section-header eyebrow="PROJECTS"></app-section-header>
+
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @for (project of projects; track project.title) {
+          <div class="col">
+            <div class="project-card h-100 d-flex flex-column">
+              <!-- Visual Header Preview -->
+              <div
+                class="project-card__preview d-flex align-items-center justify-content-center overflow-hidden position-relative"
+                [style.background]="project.image ? null : project.gradient"
+              >
+                @if (project.image) {
+                  <img
+                    [src]="project.image"
+                    [alt]="project.title"
+                    class="project-card__img"
+                    loading="lazy"
+                  />
+                } @else {
+                  <div class="preview-glow"></div>
+                  <div class="preview-icon-wrapper d-flex align-items-center justify-content-center">
+                    <i class="{{ project.icon }}" aria-hidden="true"></i>
+                  </div>
+                }
+              </div>
+
+              <!-- Content Area -->
+              <div class="project-card__content p-4 d-flex flex-column gap-3 flex-grow-1">
+                <h3 class="project-card__title mb-0">{{ project.title }}</h3>
+                <p class="project-card__desc mb-0 flex-grow-1">{{ project.description }}</p>
+
+                <div class="project-card__tags d-flex align-items-center gap-2 flex-wrap mt-auto">
+                  @for (tag of project.tags; track tag; let last = $last) {
+                    <span class="project-tag">{{ tag }}</span>
+                    @if (!last) {
+                      <span class="project-tag-separator">·</span>
+                    }
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 5. Skills Section                                                     -->
+    <!-- ===================================================================== -->
+    <section id="skills" class="section-block">
+      <app-section-header eyebrow="SKILLS"></app-section-header>
+
+      <div class="d-flex flex-column gap-5">
+        <!-- Technical Stack Bar -->
+        <div>
+          <h3 class="skills-block-title mb-3">Technical Stack</h3>
+
+          <div class="row row-cols-2 row-cols-sm-3 row-cols-md-6 g-3">
+            @for (tech of techStack; track tech.name) {
+              <div class="col">
+                <div class="tech-card d-flex flex-column align-items-center justify-content-center gap-2 h-100">
+                  <div class="tech-icon-box d-flex align-items-center justify-content-center">
+                    @if (tech.image) {
+                      <img [src]="tech.image" [alt]="tech.name" class="tech-img" />
+                    } @else if (tech.icon) {
+                      <i [class]="tech.icon" aria-hidden="true"></i>
+                    }
+                  </div>
+                  <span class="tech-label">{{ tech.name }}</span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- 2-Column Split: Domain & Languages -->
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          <!-- Domain & Methodologies -->
+          <div class="col">
+            <div class="skills-panel p-4 h-100">
+              <h3 class="skills-panel-title mb-3">Domain & Methodologies</h3>
+              <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                @for (method of domainMethodologies; track method) {
+                  <li class="methodology-item d-flex align-items-center gap-2">
+                    <span class="methodology-bullet flex-shrink-0"></span>
+                    <span>{{ method }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+
+          <!-- Languages Proficiency -->
+          <div class="col">
+            <div class="skills-panel p-4 h-100">
+              <h3 class="skills-panel-title mb-3">Languages</h3>
+              <div class="d-flex flex-column gap-3">
+                @for (lang of languages; track lang.name) {
+                  <div class="language-item d-flex flex-column gap-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="language-name">{{ lang.name }}</span>
+                      <span class="language-level">{{ lang.level }}</span>
+                    </div>
+                    <div
+                      class="progress"
+                      style="height: 6px;"
+                      role="progressbar"
+                      [attr.aria-valuenow]="lang.percentage"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      <div class="progress-bar" [style.width.%]="lang.percentage"></div>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 6. Get in Touch Section                                               -->
+    <!-- ===================================================================== -->
+    <section id="contact" class="section-block">
+      <app-section-header eyebrow="GET IN TOUCH"></app-section-header>
+
+      <div class="row g-4 g-lg-5 align-items-start">
+        <!-- Left: Info Column -->
+        <div class="col-12 col-lg-5 d-flex flex-column gap-3">
+          <h2 class="contact-title mb-0">Let's build something together.</h2>
+          <p class="contact-subtitle mb-0">
+            Whether you have a question about my work, are looking for a developer to join your team, or just want to say hi, I'll try my best to get back to you!
+          </p>
+
+          <div class="d-flex flex-column gap-3 pt-2">
+            <a href="mailto:ktite.m3@gmail.com" class="contact-link-item d-flex align-items-center gap-3">
+              <span class="contact-icon-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                <i class="ph ph-envelope-simple" aria-hidden="true"></i>
+              </span>
+              <span>ktite.m3&#64;gmail.com</span>
+            </a>
+
+            <div class="contact-link-item d-flex align-items-center gap-3">
+              <span class="contact-icon-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                <i class="ph ph-map-pin" aria-hidden="true"></i>
+              </span>
+              <span>Casablanca, Morocco</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Contact Form -->
+        <div class="col-12 col-lg-7">
+          <form id="portfolio-contact-form" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-3">
+            <div class="row g-3">
+              <div class="col-12 col-sm-6">
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  [(ngModel)]="contactForm.name"
+                  placeholder="Your Name"
+                  required
+                  class="form-control"
+                />
+              </div>
+
+              <div class="col-12 col-sm-6">
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  [(ngModel)]="contactForm.email"
+                  placeholder="Your Email"
+                  required
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <div>
+              <input
+                id="subject"
+                type="text"
+                name="subject"
+                [(ngModel)]="contactForm.subject"
+                placeholder="Subject"
+                class="form-control"
+              />
+            </div>
+
+            <div>
+              <textarea
+                id="message"
+                name="message"
+                [(ngModel)]="contactForm.message"
+                placeholder="Message"
+                rows="5"
+                required
+                class="form-control"
+              ></textarea>
+            </div>
+
+            @if (formError()) {
+              <div class="alert alert-danger py-2 px-3 mb-0 d-flex align-items-center gap-2" role="alert" style="font-size: 14px;">
+                <i class="ph ph-warning-circle flex-shrink-0" style="font-size: 18px;" aria-hidden="true"></i>
+                <span>{{ formError() }}</span>
+              </div>
+            }
+
+            @if (formSubmitted()) {
+              <div class="alert alert-success py-2 px-3 mb-0 d-flex align-items-center gap-2" role="alert" style="font-size: 14px;">
+                <i class="ph ph-check-circle flex-shrink-0" style="font-size: 18px;" aria-hidden="true"></i>
+                <span>Thank you! Your message has been sent successfully to Mohammed.</span>
+              </div>
+            }
+
+            <div class="pt-2">
+              <button
+                id="submit-btn"
+                type="submit"
+                class="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-2"
+                [disabled]="isSubmitting() || formSubmitted()"
+              >
+                @if (isSubmitting()) {
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  <span>Sending...</span>
+                } @else if (formSubmitted()) {
+                  <i class="ph ph-check" aria-hidden="true"></i>
+                  <span>Message Sent!</span>
+                } @else {
+                  <span>Send Message</span>
+                  <i class="ph-fill ph-paper-plane-tilt" aria-hidden="true"></i>
+                }
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- 7. Footer                                                                 -->
+  <!-- ========================================================================= -->
+  <footer class="app-footer mt-5  py-4">
+    <div class="container d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-4">
+      <div class="d-flex flex-column gap-1">
+        <h4 class="footer-brand mb-0">Mohammed Ktite</h4>
+        <p class="footer-tagline mb-0">Building seamless digital experiences.</p>
+        <span class="footer-location">Based in Casablanca, Morocco</span>
+      </div>
+
+      <div class="d-flex flex-column align-items-md-end gap-3">
+        <div class="d-flex align-items-center gap-4">
+          <a href="mailto:ktite.m3@gmail.com" class="social-link d-inline-flex align-items-center gap-2" aria-label="Email">
+            <i class="ph ph-envelope" aria-hidden="true"></i>
+            <span>Email</span>
+          </a>
+          <a
+            href="https://linkedin.com/in/mohammed-ktite"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link d-inline-flex align-items-center gap-2"
+            aria-label="LinkedIn"
+          >
+            <i class="ph ph-linkedin-logo" aria-hidden="true"></i>
+            <span>LinkedIn</span>
+          </a>
+          <a
+            href="https://github.com/MedKtite"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link d-inline-flex align-items-center gap-2"
+            aria-label="GitHub"
+          >
+            <i class="ph ph-github-logo" aria-hidden="true"></i>
+            <span>GitHub</span>
+          </a>
+        </div>
+
+        <span class="footer-copy">© 2026 Mohammed Ktite. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+</div>
