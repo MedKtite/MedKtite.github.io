@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:portfolio": "node dist/portfolio/server/server.mjs"
+    "serve:ssr:portfolio": "node dist/portfolio/server/server.mjs",
+    "deploy": "ng build --base-href / && npx angular-cli-ghpages --dir=dist/portfolio/browser --cname=ktite.me"
   },
   "private": true,
   "packageManager": "npm@11.6.1",
