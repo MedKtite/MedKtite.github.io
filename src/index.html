@@ -2,20 +2,82 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Med Ktite</title>
+    <title>Mohammed Ktite</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Mohammed Ktite, Full-Stack & Mobile Developer in Casablanca building digital experiences for finance and B2B."
+    />
     <link rel="icon" type="image/png" sizes="192x192" href="favicon.png" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="apple-touch-icon" href="favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Inter:wght@100..900&display=swap"
       rel="stylesheet"
     />
+    <script>
+      // Pin theme and language before first paint so prerendered pages never flash.
+      (function () {
+        var root = document.documentElement;
+        try {
+          var theme = localStorage.getItem('portfolio_theme');
+          if (theme !== 'light' && theme !== 'dark') {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          root.setAttribute('data-theme', theme);
+          var lang = localStorage.getItem('portfolio_lang');
+          if (lang === 'en' || lang === 'fr') root.lang = lang;
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
+    <div class="site-preloader" id="site-preloader" hidden aria-hidden="true">
+      <div class="preloader-composition">
+        <img class="preloader-avatar" src="assets/figma/avatar.png" width="44" height="44" alt="" />
+        <span class="preloader-slash">/</span>
+        <span class="preloader-progress" id="preloader-progress">0%</span>
+      </div>
+    </div>
+    <script>
+      // First visit of a session: count up while the page loads, then fade out.
+      (function () {
+        var el = document.getElementById('site-preloader');
+        var out = document.getElementById('preloader-progress');
+        try {
+          if (sessionStorage.getItem('portfolio_intro_seen')) return;
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          sessionStorage.setItem('portfolio_intro_seen', '1');
+        } catch (e) {
+          return;
+        }
+        el.hidden = false;
+        var shown = 0;
+        var loaded = false;
+        var start = performance.now();
+        window.addEventListener('load', function () {
+          loaded = true;
+        });
+        function tick(now) {
+          var ceiling = loaded && now - start > 700 ? 100 : 90;
+          shown = Math.min(ceiling, shown + Math.max(1, (ceiling - shown) * 0.08));
+          out.textContent = Math.round(shown) + '%';
+          if (shown >= 100) {
+            el.setAttribute('data-phase', 'exit');
+            window.dispatchEvent(new Event('portfolio:intro-done'));
+            setTimeout(function () {
+              el.remove();
+            }, 450);
+            return;
+          }
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      })();
+    </script>
     <app-root></app-root>
   </body>
 </html>

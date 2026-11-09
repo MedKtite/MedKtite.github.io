@@ -1,0 +1,86 @@
+<h1 class="visually-hidden">{{ i18n.t(ui.aboutTitle) }}</h1>
+<div class="narrative">
+  @for (paragraph of intro; track $index) {
+    <p>{{ i18n.t(paragraph) }}</p>
+  }
+</div>
+
+<div class="panels">
+  <div class="credentials">
+    <section class="panel" aria-labelledby="education-title">
+      <h2 id="education-title" class="panel-title">{{ i18n.t(ui.educationTitle) }}</h2>
+      <ul class="credential-list">
+        @for (item of education; track $index) {
+          <li class="credential">
+            <h3 class="credential-title">{{ i18n.t(item.title) }}</h3>
+            <p class="credential-detail">{{ i18n.t(item.detail) }}</p>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section class="panel" aria-labelledby="certifications-title">
+      <h2 id="certifications-title" class="panel-title">{{ i18n.t(ui.certificationsTitle) }}</h2>
+      <ul class="credential-list">
+        @for (item of certifications; track $index) {
+          <li class="credential">
+            <h3 class="credential-title">{{ i18n.t(item.title) }}</h3>
+            <p class="credential-detail">{{ i18n.t(item.detail) }}</p>
+          </li>
+        }
+      </ul>
+    </section>
+  </div>
+
+  <section class="panel panel--stack" aria-labelledby="technologies-title">
+    <h2 id="technologies-title" class="panel-title">{{ i18n.t(ui.technologiesTitle) }}</h2>
+    <ul class="tech-list">
+      @for (tech of technologies; track tech) {
+        <li class="tech">{{ tech }}</li>
+      }
+    </ul>
+  </section>
+
+  <section class="panel panel--contact" aria-labelledby="contact-title">
+    <p class="eyebrow">{{ i18n.t(ui.contactEyebrow) }}</p>
+    <div class="contact-layout">
+      <div class="contact-intro">
+        <h2 id="contact-title" class="panel-title">{{ i18n.t(ui.contactTitle) }}</h2>
+        <p class="contact-lead">{{ i18n.t(ui.contactLead) }}</p>
+        <a class="contact-email underline-link" [href]="'mailto:' + profile.email">{{ profile.email }}</a>
+        <p class="contact-location">{{ i18n.t(profile.location) }}</p>
+      </div>
+
+      <form class="contact-form" (submit)="sendMessage($event)">
+        <div class="field-row">
+          <label class="field">
+            <span class="field-label">{{ i18n.t(ui.contactName) }}</span>
+            <input name="name" type="text" autocomplete="name" required [placeholder]="i18n.t(ui.contactNamePlaceholder)" />
+          </label>
+          <label class="field">
+            <span class="field-label">{{ i18n.t(ui.contactEmail) }}</span>
+            <input
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              [placeholder]="i18n.t(ui.contactEmailPlaceholder)"
+            />
+          </label>
+        </div>
+        <label class="field">
+          <span class="field-label">{{ i18n.t(ui.contactSubject) }}</span>
+          <input name="subject" type="text" [placeholder]="i18n.t(ui.contactSubjectPlaceholder)" />
+        </label>
+        <label class="field">
+          <span class="field-label">{{ i18n.t(ui.contactMessage) }}</span>
+          <textarea name="message" rows="4" required [placeholder]="i18n.t(ui.contactMessagePlaceholder)"></textarea>
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="send-button">{{ i18n.t(ui.contactSend) }}</button>
+          <p class="send-note">{{ i18n.t(ui.contactSendNote) }}</p>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

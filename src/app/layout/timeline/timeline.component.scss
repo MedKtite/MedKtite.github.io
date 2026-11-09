@@ -1,0 +1,238 @@
+// Figma Year rail timeline (101:9): 90 date column, rail, body.
+// The rail itself moves with scroll, as on the reference site's experience list.
+:host {
+  display: block;
+}
+
+.timeline {
+  --date-width: 90px;
+  --timeline-gap: 22px;
+  position: relative;
+}
+
+.timeline-list {
+  padding: 0;
+  list-style: none;
+}
+
+.timeline-entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--date-width) minmax(0, 1fr);
+  column-gap: calc(var(--timeline-gap) * 2 + 1px);
+  padding-bottom: 56px;
+
+  &:last-child {
+    padding-bottom: 16px;
+  }
+}
+
+// Dashed guide, solid fill for the part already scrolled past, and a glowing cursor.
+.track {
+  position: absolute;
+  left: calc(var(--date-width) + var(--timeline-gap) - 0.5px);
+  top: 22px;
+  width: 2px;
+  height: 0;
+  background-image: linear-gradient(color-mix(in srgb, var(--ink) 18%, transparent) 40%, transparent 40%);
+  background-size: 2px 8px;
+}
+
+.track-progress {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: var(--ink);
+  transform: scaleY(0);
+  transform-origin: center top;
+}
+
+.track-cursor {
+  position: absolute;
+  z-index: 2;
+  top: -3px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 10px 5px color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.dot {
+  position: absolute;
+  z-index: 1;
+  top: 19px;
+  left: calc(var(--date-width) + var(--timeline-gap) - 2.5px);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ink) 26%, var(--page-bg));
+  transition:
+    background-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.timeline-entry.is-passed .dot {
+  background: var(--ink);
+}
+
+.timeline-entry.is-near .dot {
+  box-shadow: 0 0 8px 3px color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+.when {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+  text-align: right;
+}
+
+.year {
+  font-size: 16px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.dates {
+  font-size: 10px;
+  line-height: 1.6;
+  opacity: 0.75;
+}
+
+.what {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  max-width: 765px;
+}
+
+// White ring and soft drop, like the reference site's company logos.
+.badge {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 3px solid var(--badge-ring);
+  border-radius: 50%;
+  background: var(--badge-bg);
+  color: var(--badge-ink);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 2px 5px #28282833;
+
+  &[data-tone='brand'] {
+    background: var(--badge-brand);
+    color: #fff;
+  }
+}
+
+.role {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 10px;
+}
+
+.role-title {
+  color: var(--ink);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.role-org {
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 25px;
+}
+
+// A named project inside a role: small heading, then its bullets or paragraph.
+.project {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 740px;
+}
+
+.project-title {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.project-body {
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.achievements {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 740px;
+  padding: 0;
+  list-style: none;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.85;
+
+  li::before {
+    content: '·';
+    margin-right: 0.6em;
+  }
+}
+
+// Figma mobile timeline (101:134): 52 date column aligned with the role, stacked heading.
+@media (max-width: 700px) {
+  .timeline {
+    --date-width: 52px;
+    --timeline-gap: 12px;
+  }
+
+  .when {
+    padding-top: 62px;
+    gap: 4px;
+  }
+
+  .year {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .dates {
+    font-size: 9px;
+  }
+
+  .role {
+    flex-direction: column;
+  }
+
+  .role-title {
+    font-size: 16px;
+  }
+
+  .achievements,
+  .project-body {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .project-title {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    transition: none;
+  }
+}

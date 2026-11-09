@@ -1,0 +1,156 @@
+// Figma Header (98:9): 1328 wide, 64 tall, identity left, display settings right.
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: min(1328px, calc(100% - 2 * var(--gutter)));
+  height: 64px;
+  margin-inline: auto;
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+// White ring + soft lift, after the reference site's portrait badge.
+.portrait-badge {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--portrait-shadow);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.identity-meta {
+  color: var(--text-dim);
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.clock {
+  margin-left: 10px;
+  color: var(--muted);
+  font: 400 11px/1.5 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.back-link {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 22px;
+  white-space: nowrap;
+}
+
+.display-settings {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.language-switch {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 30px;
+  background: var(--pill-bg);
+}
+
+.language-option {
+  padding: 6px 7px;
+  border: 0;
+  border-radius: 30px;
+  background: transparent;
+  color: var(--muted);
+  font: 500 10px/1 var(--font-sans);
+  cursor: pointer;
+  transition:
+    color 0.14s ease,
+    background-color 0.14s ease,
+    box-shadow 0.14s ease;
+
+  &:hover {
+    color: var(--text);
+  }
+
+  // Selected language sits on a raised chip, as on the reference site.
+  &[aria-pressed='true'] {
+    color: var(--text);
+    font-weight: 500;
+    background: var(--surface);
+    box-shadow: var(--control-shadow);
+  }
+}
+
+.sound-toggle,
+.theme-toggle {
+  display: block;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+
+  img {
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  &:hover img {
+    transform: rotate(-20deg);
+  }
+}
+
+// Speaker shows waves while on, a cross while muted.
+.sound-toggle {
+  &[aria-pressed='true'] .sound-muted,
+  &[aria-pressed='false'] .sound-waves {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .site-header {
+    height: 56px;
+  }
+
+  .identity-meta {
+    font-size: 10px;
+  }
+
+  .clock {
+    display: none;
+  }
+
+  .language-switch {
+    gap: 0;
+  }
+
+  .language-option {
+    padding-inline: 6px;
+  }
+
+  .display-settings {
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle img {
+    transition: none;
+  }
+}

@@ -1,0 +1,45 @@
+.site-footer {
+  width: min(1328px, calc(100% - 2 * var(--gutter)));
+  margin-inline: auto;
+  color: var(--muted);
+  line-height: normal;
+}
+
+// Figma Footer (98:73): one row, credit on each side.
+.site-footer--home {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 48px;
+  font-size: 12px;
+}
+
+// Figma Footer (99:18): centered stack, 110 tall.
+.site-footer--page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 110px;
+
+  .copyright {
+    font-size: 12px;
+  }
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+}
+
+@media (max-width: 700px) {
+  .site-footer--home {
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    min-height: 50px;
+  }
+}

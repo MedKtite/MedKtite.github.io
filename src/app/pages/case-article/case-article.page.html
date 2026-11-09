@@ -1,0 +1,87 @@
+<article class="article">
+  <header class="article-header" [class.article-header--product]="article.subtitle">
+    <h1 class="article-title">{{ i18n.t(article.title) }}</h1>
+    @if (article.subtitle) {
+      <p class="article-subtitle">{{ i18n.t(article.subtitle) }}</p>
+    }
+    <p class="article-intro">{{ i18n.t(article.intro) }}</p>
+    <p class="article-role">{{ i18n.t(article.role) }}</p>
+  </header>
+
+  <ng-container *ngTemplateOutlet="figure; context: { $implicit: article.hero, eager: true }"></ng-container>
+
+  @for (section of article.sections; track $index) {
+    <section class="article-section">
+      <h2>{{ i18n.t(section.title) }}</h2>
+      @for (paragraph of section.paragraphs; track $index) {
+        <p>{{ i18n.t(paragraph) }}</p>
+      }
+      @if (section.link; as link) {
+        <a class="article-link" [href]="link.href" target="_blank" rel="noopener"
+          >{{ i18n.t(link.label) }}<span aria-hidden="true">&nbsp;↗</span
+          ><span class="visually-hidden"> {{ i18n.t(ui.opensNewTab) }}</span></a
+        >
+      }
+    </section>
+    @if (section.pair; as pair) {
+      <figure class="screen-pair">
+        <div class="screen-pair-row">
+          @for (screen of pair.screens; track screen.src) {
+            <div class="screen">
+              <img
+                [src]="screen.src"
+                [width]="screen.width"
+                [height]="screen.height"
+                [alt]="i18n.t(screen.alt)"
+                loading="lazy"
+                decoding="async"
+              />
+              <p class="screen-label">{{ i18n.t(screen.label) }}</p>
+            </div>
+          }
+        </div>
+        <figcaption>{{ i18n.t(pair.caption) }}</figcaption>
+      </figure>
+    }
+    @for (item of section.figures ?? []; track item.src) {
+      <ng-container *ngTemplateOutlet="figure; context: { $implicit: item, eager: false }"></ng-container>
+    }
+  }
+</article>
+
+<ng-template #figure let-item let-eager="eager">
+  <figure class="article-figure" [class.article-figure--plain]="item.plain" [style.max-width.px]="item.maxWidth">
+    @if (item.crop; as crop) {
+      <div
+        class="figure-crop"
+        [style.aspect-ratio]="crop.frameWidth + ' / ' + crop.frameHeight"
+        [style.background]="crop.background"
+      >
+        <img
+          [src]="item.src"
+          [width]="item.width"
+          [height]="item.height"
+          [alt]="i18n.t(item.alt)"
+          [style.left.%]="crop.left"
+          [style.top.%]="crop.top"
+          [style.width.%]="crop.width"
+          [style.height.%]="crop.height"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    } @else {
+      <img
+        [src]="item.src"
+        [width]="item.width"
+        [height]="item.height"
+        [alt]="i18n.t(item.alt)"
+        [attr.loading]="eager ? null : 'lazy'"
+        decoding="async"
+      />
+    }
+    @if (item.caption) {
+      <figcaption>{{ i18n.t(item.caption) }}</figcaption>
+    }
+  </figure>
+</ng-template>

@@ -1,0 +1,21 @@
+<a class="folder-button" [routerLink]="folder.path" [attr.data-shape]="folder.shape">
+  <span class="folder-visual" aria-hidden="true">
+    <img class="folder-back" src="assets/figma/folder-back.svg" width="120" height="104" alt="" />
+    <span class="folder-items">
+      @for (thumb of folder.thumbs; track $index) {
+        @if (thumb.image) {
+          <img class="folder-thumb" [src]="thumb.image" [style]="thumbStyle($index, folder.thumbs.length)" alt="" />
+        } @else {
+          <span
+            class="folder-thumb folder-thumb--badge"
+            [attr.data-tone]="thumb.badgeTone"
+            [style]="thumbStyle($index, folder.thumbs.length)"
+            >{{ thumb.badge }}</span
+          >
+        }
+      }
+    </span>
+    <img class="folder-front" src="assets/figma/folder-front.svg" width="120" height="104" alt="" />
+  </span>
+  <span class="folder-caption">{{ i18n.t(folder.label) }}</span>
+</a>

@@ -1,0 +1,70 @@
+<header class="site-header">
+  <div class="identity">
+    <span class="portrait-badge">
+      <img [src]="profile.avatar" width="44" height="44" [alt]="profile.name" />
+    </span>
+
+    @if (isHome) {
+      <p class="identity-meta">
+        <span aria-hidden="true">/&nbsp;&nbsp;</span>{{ i18n.t(profile.location) }}
+        @if (clock()) {
+          <time class="clock" [attr.aria-label]="i18n.t(ui.localTime)">{{ clock() }}</time>
+        }
+      </p>
+    } @else {
+      <a [routerLink]="backLink" class="back-link underline-link">/&nbsp;&nbsp;{{ i18n.t(ui.back) }}</a>
+    }
+  </div>
+
+  <div class="display-settings">
+    <div class="language-switch" role="group" [attr.aria-label]="i18n.t(ui.language)">
+      @for (lang of languages; track lang) {
+        <button
+          type="button"
+          class="language-option"
+          [attr.lang]="lang"
+          [attr.aria-pressed]="i18n.current() === lang"
+          (click)="i18n.setLang(lang)"
+        >
+          {{ lang.toUpperCase() }}
+        </button>
+      }
+    </div>
+
+    <button
+      type="button"
+      class="sound-toggle"
+      [attr.aria-label]="i18n.t(ui.clickSound)"
+      [attr.aria-pressed]="sound.enabled()"
+      (click)="sound.toggle()"
+    >
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="15" fill="white" stroke="#E2E2E2" />
+        <path d="M9 13.5h3l4-3.5v12l-4-3.5H9z" fill="#292929" />
+        <path
+          class="sound-waves"
+          d="M19 13a4 4 0 0 1 0 6M21.5 10.5a7.5 7.5 0 0 1 0 11"
+          stroke="#292929"
+          stroke-width="1.6"
+          stroke-linecap="round"
+        />
+        <path
+          class="sound-muted"
+          d="M19.5 13.5l5 5M24.5 13.5l-5 5"
+          stroke="#292929"
+          stroke-width="1.6"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
+
+    <button
+      type="button"
+      class="theme-toggle"
+      [attr.aria-label]="i18n.t(theme.isDark() ? ui.toLight : ui.toDark)"
+      (click)="theme.toggleTheme()"
+    >
+      <img src="assets/figma/theme-toggle.svg" width="32" height="32" alt="" />
+    </button>
+  </div>
+</header>

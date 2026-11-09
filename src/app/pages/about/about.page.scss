@@ -1,0 +1,274 @@
+// Figma About Me — Desktop (99:59): narrative, then Education / Certifications,
+// Technologies and Contact panels, all 1040 wide.
+:host {
+  display: block;
+  width: min(1040px, calc(100% - 2 * var(--gutter)));
+  margin-inline: auto;
+}
+
+.narrative {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 760px;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.panels {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+// Education (430) beside Certifications (586); each keeps its own height.
+.credentials {
+  display: grid;
+  grid-template-columns: minmax(0, 430fr) minmax(0, 586fr);
+  align-items: start;
+  gap: 24px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px;
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  background: var(--card-bg);
+}
+
+.panel--stack {
+  gap: 16px;
+}
+
+.panel--contact {
+  gap: 22px;
+}
+
+.panel-title {
+  color: var(--ink);
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.credential-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.credential-title {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.credential-detail {
+  margin-top: 4px;
+  color: var(--prose);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.tech {
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: var(--pill-bg);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.eyebrow {
+  color: var(--prose);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+// Contact introduction (332) and form (594), 58 apart.
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 332fr) minmax(0, 594fr);
+  gap: 58px;
+}
+
+.contact-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.contact-lead {
+  color: var(--prose);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.contact-email {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.contact-location {
+  color: var(--prose);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field-label {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--field-border);
+  border-radius: 8px;
+  background: var(--field-bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: border-color 0.18s ease;
+
+  &::placeholder {
+    color: var(--placeholder);
+    opacity: 1;
+  }
+
+  &:hover {
+    border-color: var(--ink-soft);
+  }
+
+  &:focus-visible {
+    border-color: var(--ink);
+    outline: 2px solid var(--focus);
+    outline-offset: 1px;
+  }
+}
+
+input {
+  height: 48px;
+}
+
+textarea {
+  min-height: 126px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+
+.send-button {
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--page-bg);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: transform 0.18s var(--ease-out);
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}
+
+.send-note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 860px) {
+  .credentials,
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-layout {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 700px) {
+  .narrative {
+    font-size: 14px;
+  }
+
+  .panel {
+    padding: 22px 20px;
+  }
+
+  .panel-title {
+    font-size: 20px;
+  }
+
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .send-button {
+    transition: none;
+  }
+}

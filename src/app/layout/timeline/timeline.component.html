@@ -1,0 +1,51 @@
+<div class="timeline">
+  <span class="track" aria-hidden="true">
+    <span class="track-progress"></span>
+    <span class="track-cursor"></span>
+  </span>
+  <ol class="timeline-list">
+    @for (entry of entries; track entry.organization) {
+      <li class="timeline-entry">
+        <span class="dot" aria-hidden="true"></span>
+        <div class="when">
+          <p class="year">{{ entry.year }}</p>
+          <p class="dates">{{ i18n.t(entry.dates) }}</p>
+        </div>
+        <div class="what">
+          <span class="badge" [attr.data-tone]="entry.badgeTone" aria-hidden="true">{{ entry.badge }}</span>
+          <div class="role" role="heading" [attr.aria-level]="headingLevel">
+            <span class="role-title">{{ i18n.t(entry.role) }}</span>
+            <span class="role-org">{{ entry.organization }}</span>
+          </div>
+          @if (entry.summary) {
+            <p class="project-body">{{ i18n.t(entry.summary) }}</p>
+          }
+          @for (project of entry.projects ?? []; track $index) {
+            <div class="project">
+              <div class="project-title" role="heading" [attr.aria-level]="headingLevel + 1">
+                {{ i18n.t(project.title) }}
+              </div>
+              @if (project.body) {
+                <p class="project-body">{{ i18n.t(project.body) }}</p>
+              }
+              @if (project.bullets?.length) {
+                <ul class="achievements">
+                  @for (bullet of project.bullets; track $index) {
+                    <li>{{ i18n.t(bullet) }}</li>
+                  }
+                </ul>
+              }
+            </div>
+          }
+          @if (entry.bullets?.length) {
+            <ul class="achievements">
+              @for (bullet of entry.bullets; track $index) {
+                <li>{{ i18n.t(bullet) }}</li>
+              }
+            </ul>
+          }
+        </div>
+      </li>
+    }
+  </ol>
+</div>

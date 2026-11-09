@@ -1,0 +1,35 @@
+<h1 class="visually-hidden">{{ i18n.t(ui.workTitle) }}</h1>
+<ul class="projects">
+  @for (project of projects; track project.name) {
+    <li class="project">
+      <div class="project-heading">
+        <h2 class="project-name">{{ project.name }}</h2>
+        <span class="status" [attr.data-status]="project.status">{{ i18n.t(status[project.status]) }}</span>
+      </div>
+      <p class="project-tagline">{{ i18n.t(project.tagline) }}</p>
+      <p class="summary">{{ i18n.t(project.description) }}</p>
+
+      <div class="project-meta">
+        <ul class="project-stack" [attr.aria-label]="i18n.t(ui.techStack)">
+          @for (item of project.stack; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+        <div class="project-footer">
+          <span class="platform" [attr.aria-label]="i18n.t(ui.platform) + ': ' + project.platform">{{
+            project.platform
+          }}</span>
+          <div class="project-links">
+            @for (link of project.links; track link.href) {
+              <a class="underline-link" [href]="link.href" target="_blank" rel="noopener"
+                >{{ i18n.t(link.label) }}<span class="visually-hidden"> {{ i18n.t(ui.opensNewTab) }}</span></a
+              >
+            } @empty {
+              <a class="underline-link" [href]="askHref(project)">{{ i18n.t(ui.askAbout) }}</a>
+            }
+          </div>
+        </div>
+      </div>
+    </li>
+  }
+</ul>

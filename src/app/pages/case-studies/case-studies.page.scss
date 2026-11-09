@@ -1,0 +1,98 @@
+// Figma Case Studies / Image-led cards (101:63): two 492 columns, 56 gap.
+:host {
+  display: block;
+  width: min(1040px, calc(100% - 2 * var(--gutter)));
+  margin-inline: auto;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 64px 56px;
+}
+
+.case-study {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.case-study--link {
+  border-radius: 22px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.case-study--link:focus-visible .cover img {
+  transform: scale(1.04);
+}
+
+.cover {
+  aspect-ratio: 492 / 342;
+  overflow: hidden;
+  border-radius: 22px;
+  box-shadow: var(--card-shadow);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.36s cubic-bezier(0.2, 0.65, 0.3, 1);
+  }
+}
+
+.title {
+  color: var(--ink);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.55;
+  transition: color 0.18s ease;
+}
+
+// Transparent device artwork sits whole inside its coloured frame.
+.cover--art img {
+  padding: 18px 18px 0;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+// Cover zooms gently under the pointer, as on the reference site's case study cards.
+@media (hover: hover) {
+  .case-study:hover {
+    .cover img {
+      transform: scale(1.04);
+    }
+
+    .title {
+      color: var(--text);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover img,
+  .title {
+    transition-duration: 0.01ms;
+  }
+}
+
+.summary {
+  color: var(--ink-cover);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+// Figma Case Studies — Mobile (101:203): stacked, 350×250 covers.
+@media (max-width: 700px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .cover {
+    aspect-ratio: 350 / 250;
+  }
+
+  .summary {
+    font-size: 14px;
+  }
+}

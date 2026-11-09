@@ -1,0 +1,174 @@
+// Folder (Figma 98:31): 160 column, 120×104 folder, 12 gap, 14px medium caption.
+// The Figma folder is split into back and front layers so real previews sit
+// between them. Motion, timing and shadows follow ehsandesigns.com.
+:host {
+  display: block;
+}
+
+.folder-button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 160px;
+  padding-bottom: 4px;
+  border-radius: 12px;
+  color: var(--text-dim);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &:is(:hover, :focus-visible) {
+    z-index: 5;
+    color: var(--text);
+  }
+}
+
+.folder-visual {
+  position: relative;
+  display: block;
+  width: 120px;
+  height: 104px;
+  isolation: isolate;
+  transform-origin: 50% 80%;
+  transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.folder-back,
+.folder-front {
+  position: absolute;
+  inset: 0;
+  filter: var(--folder-filter);
+  transition:
+    transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.4s ease;
+}
+
+.folder-back {
+  z-index: 0;
+}
+
+.folder-front {
+  z-index: 3;
+  transform-origin: 50% 95%;
+}
+
+.folder-items {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.folder-thumb {
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
+  display: block;
+  width: 62px;
+  height: 48px;
+  max-width: none;
+  border: 3px solid var(--thumb-ring);
+  border-radius: 6px;
+  background: var(--thumb-ring);
+  object-fit: cover;
+  object-position: top;
+  box-shadow: var(--thumb-shadow);
+  transform: translate(calc(-50% + var(--offset))) translateY(var(--lift)) rotate(var(--angle));
+  // Slight overshoot, so the previews spring out rather than slide.
+  transition: transform 0.65s cubic-bezier(0.18, 0.9, 0.25, 1.2);
+
+  &:nth-child(2) {
+    z-index: 2;
+  }
+}
+
+[data-shape='portrait'] .folder-thumb {
+  width: 40px;
+  height: 58px;
+}
+
+[data-shape='round'] .folder-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+// Organization badges mirror the ones on the timeline.
+.folder-thumb--badge {
+  display: grid;
+  place-items: center;
+  background: var(--badge-bg);
+  color: var(--badge-ink);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+
+  &[data-tone='brand'] {
+    background: var(--badge-brand);
+    color: #fff;
+  }
+}
+
+.folder-caption {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+  white-space: nowrap;
+  transition: color 0.18s ease;
+}
+
+.folder-button:is(:hover, :focus-visible) {
+  .folder-visual {
+    transform: scale(1.003);
+  }
+
+  .folder-thumb {
+    transform: translate(calc(-50% + var(--offset))) translateY(calc(var(--lift) - 26px)) rotate(var(--angle));
+  }
+
+  // The middle card of three climbs highest.
+  .folder-thumb:nth-child(2):not(:last-child) {
+    transform: translate(-50%) translateY(-57px) rotate(-2deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .folder-button {
+    width: 100%;
+  }
+
+  .folder-caption {
+    font-size: 11px;
+  }
+
+  .folder-button:is(:hover, :focus-visible) {
+    .folder-thumb {
+      transform: translate(calc(-50% + var(--offset))) translateY(calc(var(--lift) - 17px)) rotate(var(--angle));
+    }
+
+    .folder-thumb:nth-child(2):not(:last-child) {
+      transform: translate(-50%) translateY(-43px) rotate(-2deg);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .folder-visual,
+  .folder-back,
+  .folder-front,
+  .folder-thumb {
+    transition: none !important;
+  }
+
+  .folder-button:is(:hover, :focus-visible) {
+    .folder-visual {
+      transform: none;
+    }
+
+    .folder-thumb,
+    .folder-thumb:nth-child(2):not(:last-child) {
+      transform: translate(calc(-50% + var(--offset))) translateY(var(--lift)) rotate(var(--angle));
+    }
+  }
+}

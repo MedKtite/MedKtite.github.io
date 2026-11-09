@@ -1,0 +1,22 @@
+<h1 class="visually-hidden">{{ i18n.t(ui.caseStudiesTitle) }}</h1>
+<div class="cards">
+  @for (study of studies; track study.cover) {
+    @if (study.path) {
+      <a class="case-study case-study--link" [routerLink]="study.path">
+        <div class="cover" [class.cover--art]="study.coverBackground" [style.background]="study.coverBackground ?? null">
+          <img [src]="study.cover" alt="" decoding="async" />
+        </div>
+        <h2 class="title">{{ i18n.t(study.title) }}</h2>
+        <p class="summary">{{ i18n.t(study.summary) }}</p>
+      </a>
+    } @else {
+      <article class="case-study">
+        <div class="cover" [class.cover--art]="study.coverBackground" [style.background]="study.coverBackground ?? null">
+          <img [src]="study.cover" alt="" decoding="async" />
+        </div>
+        <h2 class="title">{{ i18n.t(study.title) }}</h2>
+        <p class="summary">{{ i18n.t(study.summary) }}</p>
+      </article>
+    }
+  }
+</div>

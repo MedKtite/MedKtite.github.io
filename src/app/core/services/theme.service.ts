@@ -8,7 +8,7 @@ export type Theme = 'dark' | 'light';
 })
 export class ThemeService {
   private readonly THEME_KEY = 'portfolio_theme';
-  readonly currentTheme = signal<Theme>('dark');
+  readonly currentTheme = signal<Theme>('light');
   private isBrowser: boolean;
 
   constructor(@Inject(PLATFORM_ID) platformId: object) {
@@ -18,20 +18,16 @@ export class ThemeService {
     }
   }
 
+  // index.html sets data-theme before first paint; this only syncs the signal with it.
   private initTheme(): void {
-    try {
-      const savedTheme = localStorage.getItem(this.THEME_KEY) as Theme | null;
-      if (savedTheme === 'light' || savedTheme === 'dark') {
-        this.setTheme(savedTheme);
-      } else if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        this.setTheme(prefersDark ? 'dark' : 'dark');
-      } else {
-        this.setTheme('dark');
-      }
-    } catch {
-      this.setTheme('dark');
+    const applied = document.documentElement.getAttribute('data-theme');
+    if (applied === 'light' || applied === 'dark') {
+      this.currentTheme.set(applied);
+      return;
     }
+    const prefersDark =
+      typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    this.currentTheme.set(prefersDark ? 'dark' : 'light');
   }
 
   setTheme(theme: Theme): void {
@@ -42,18 +38,12 @@ export class ThemeService {
       } catch {
         // Ignore localStorage errors (e.g. disabled cookies/storage)
       }
-
-      if (theme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-      }
+      document.documentElement.setAttribute('data-theme', theme);
     }
   }
 
   toggleTheme(): void {
-    const nextTheme: Theme = this.currentTheme() === 'dark' ? 'light' : 'dark';
-    this.setTheme(nextTheme);
+    this.setTheme(this.currentTheme() === 'dark' ? 'light' : 'dark');
   }
 
   isDark(): boolean {

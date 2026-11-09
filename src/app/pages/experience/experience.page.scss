@@ -1,0 +1,7 @@
+// Figma Experience / Year rail timeline (101:9): 900 wide.
+:host {
+  display: block;
+  width: min(900px, calc(100% - 2 * var(--gutter)));
+  margin-inline: auto;
+  margin-top: -4px;
+}

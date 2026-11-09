@@ -1,0 +1,245 @@
+// Figma Case study article (115:2): a 740 title block, 701 reading column and
+// screenshots that break out wider, all centred with 28 between blocks.
+:host {
+  display: block;
+  width: calc(100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  margin-top: 12px;
+}
+
+.article-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(740px, 100%);
+  line-height: 1.57;
+}
+
+.article-title {
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.57;
+}
+
+// Figma 124:46: product name large, subtitle beneath, tighter role line.
+.article-header--product {
+  gap: 14px;
+  width: min(701px, 100%);
+  line-height: 1.55;
+
+  .article-title {
+    font-size: 30px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  .article-role {
+    font-size: 13px;
+    white-space: pre-wrap;
+  }
+}
+
+.article-subtitle {
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.article-intro {
+  color: var(--prose);
+  font-size: 15px;
+}
+
+.article-role {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.article-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(701px, 100%);
+  padding-top: 20px;
+  line-height: 1.57;
+
+  h2 {
+    color: var(--ink);
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.57;
+    white-space: pre-wrap;
+  }
+
+  p {
+    color: var(--prose);
+    font-size: 15px;
+  }
+}
+
+// Screenshots carry the site's card shadow so white UI holds its edge on the page.
+.article-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+
+  > img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    background: var(--surface);
+    box-shadow: var(--card-shadow);
+  }
+
+  figcaption {
+    color: var(--prose);
+    font-size: 13px;
+    line-height: 1.57;
+    text-align: center;
+  }
+}
+
+// Device mockups carry their own shape and shadow.
+.article-figure--plain > img {
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.article-link {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.55;
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 3px;
+}
+
+// Figma 124:84: two 278px phone screens, 24 apart, labelled, one caption under both.
+.screen-pair {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: min(920px, 100%);
+  margin-top: -6px;
+
+  figcaption {
+    max-width: 720px;
+    color: var(--prose);
+    font-size: 13px;
+    line-height: 1.55;
+    text-align: center;
+  }
+}
+
+.screen-pair-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  padding-block: 30px;
+}
+
+.screen {
+  display: flex;
+  flex: 0 1 278px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    box-shadow: var(--card-shadow);
+  }
+}
+
+.screen-label {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.55;
+  text-align: center;
+}
+
+// Figma 118:7: a tinted 14-radius window showing one region of a larger screenshot.
+.figure-crop {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: var(--card-shadow);
+
+  img {
+    position: absolute;
+    max-width: none;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .article {
+    gap: 24px;
+    margin-top: 0;
+  }
+
+  .article-title {
+    font-size: 20px;
+  }
+
+  .article-header--product .article-title {
+    font-size: 26px;
+  }
+
+  .article-subtitle {
+    font-size: 16px;
+  }
+
+  .screen-pair-row {
+    gap: 12px;
+    padding-block: 12px;
+  }
+
+  .screen img {
+    border-radius: 10px;
+  }
+
+  .screen-label {
+    font-size: 12px;
+  }
+
+  .article-section {
+    padding-top: 12px;
+
+    h2 {
+      font-size: 17px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .article-figure > img {
+    border-radius: 8px;
+  }
+
+  .figure-crop {
+    border-radius: 10px;
+  }
+}
