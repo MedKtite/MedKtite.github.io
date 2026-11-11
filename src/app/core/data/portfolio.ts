@@ -8,7 +8,7 @@ export type Localized = Record<Lang, string>;
 
 export interface ContactLink {
   label: Localized;
-  href: string;
+  href: string | Localized;
   icon: 'mail' | 'linkedin' | 'github' | 'download';
   external?: boolean;
   download?: boolean;
@@ -177,7 +177,7 @@ const GITHUB: ContactLink = {
 };
 const CV: ContactLink = {
   label: { en: 'Download CV', fr: 'Télécharger le CV' },
-  href: 'assets/cv/MEDKTITE%20-%20CV.pdf',
+  href: { en: 'assets/cv/Mohammed-Ktite-CV-EN.pdf', fr: 'assets/cv/Mohammed-Ktite-CV-FR.pdf' },
   icon: 'download',
   download: true,
 };
@@ -536,7 +536,7 @@ export const MACONFORMITE_ARTICLE: CaseArticle = {
     src: `${MC}/landing.png`,
     width: 3549,
     height: 2219,
-    maxWidth: 1319,
+    maxWidth: 960,
     alt: {
       en: 'MaConformite.ma landing page: “La conformité LBC-FT, enfin structurée pour votre cabinet”, with a dashboard preview.',
       fr: 'Page d’accueil de MaConformite.ma : « La conformité LBC-FT, enfin structurée pour votre cabinet », avec un aperçu du tableau de bord.',
@@ -582,7 +582,7 @@ export const MACONFORMITE_ARTICLE: CaseArticle = {
           src: `${MC}/dashboard.png`,
           width: 3556,
           height: 2218,
-          maxWidth: 1323,
+          maxWidth: 860,
           alt: {
             en: 'MaConformite.ma dashboard with company search above risk distribution, alerts and recent activity panels.',
             fr: 'Tableau de bord de MaConformite.ma : recherche de société au-dessus des panneaux de répartition des risques, d’alertes et d’activité récente.',
@@ -603,7 +603,7 @@ export const MACONFORMITE_ARTICLE: CaseArticle = {
           src: `${MC}/search.png`,
           width: 1280,
           height: 448,
-          maxWidth: 640,
+          maxWidth: 560,
           alt: {
             en: 'Company search form with name, ICE and RC fields.',
             fr: 'Formulaire de recherche de société avec les champs raison sociale, ICE et RC.',
@@ -614,10 +614,10 @@ export const MACONFORMITE_ARTICLE: CaseArticle = {
           },
         },
         {
-          src: `${MC}/results.png`,
-          width: 1340,
-          height: 374,
-          maxWidth: 640,
+          src: `${MC}/result.png`,
+          width: 640,
+          height: 174,
+          maxWidth: 560,
           alt: {
             en: 'Search result showing the matching company with its address and registry details.',
             fr: 'Résultat de recherche affichant la société correspondante, son adresse et ses informations de registre.',
@@ -642,7 +642,7 @@ export const MACONFORMITE_ARTICLE: CaseArticle = {
           src: `${MC}/kyc.png`,
           width: 3006,
           height: 1164,
-          maxWidth: 1167,
+          maxWidth: 860,
           alt: {
             en: 'KYC questionnaire step with a progress sidebar and two ways to complete it.',
             fr: 'Étape du questionnaire KYC avec une barre de progression latérale et deux façons de le remplir.',
@@ -667,7 +667,7 @@ export const MACONFORMITE_ARTICLE: CaseArticle = {
           src: `${MC}/completed.png`,
           width: 3600,
           height: 2338,
-          maxWidth: 830,
+          maxWidth: 720,
           alt: {
             en: 'Completed KYC questionnaire with each section marked done and a button to continue to supporting documents.',
             fr: 'Questionnaire KYC complété, chaque section marquée comme terminée, avec un bouton pour passer aux pièces justificatives.',
@@ -702,7 +702,7 @@ export const MACONFORMITE_ARTICLE: CaseArticle = {
           src: `${MC}/dossier.png`,
           width: 3080,
           height: 1312,
-          maxWidth: 1166,
+          maxWidth: 860,
           alt: {
             en: 'Company dossier showing the risk decision, KYC status, latest screening and next review date.',
             fr: 'Dossier de la société affichant la décision de risque, le statut KYC, le dernier filtrage et la date de prochaine revue.',

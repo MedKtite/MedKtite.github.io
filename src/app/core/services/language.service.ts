@@ -39,7 +39,7 @@ export class LanguageService {
     }
   }
 
-  t(text: Localized): string {
-    return text[this.current()];
+  t(text: string | Localized): string {
+    return typeof text === 'string' ? text : text[this.current()];
   }
 }

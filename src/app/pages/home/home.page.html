@@ -4,11 +4,11 @@
   <div class="contact">
     <p>{{ i18n.t(profile.contactPrompt) }}</p>
     <ul class="social-links">
-      @for (link of links; track link.href) {
+      @for (link of links; track link.icon) {
         <li>
           <a
             class="social-link"
-            [href]="link.href"
+            [href]="i18n.t(link.href)"
             [attr.target]="link.external ? '_blank' : null"
             [attr.rel]="link.external ? 'noopener' : null"
             [attr.download]="link.download ? '' : null"
