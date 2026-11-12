@@ -23,6 +23,7 @@ export const routes: Routes = [
     data: { slug: 'analytix-mobile' },
     title: 'Analytix Mobile case study · Mohammed Ktite',
   },
+  { path: 'case-studies/ancora', component: CaseArticlePage, data: { slug: 'ancora' }, title: 'Ancora case study · Mohammed Ktite' },
   { path: 'about', component: AboutPage, title: 'About · Mohammed Ktite' },
   { path: '**', redirectTo: '' },
 ];

@@ -41,6 +41,13 @@
   }
 }
 
+// Crop the black capture strip from the Ancora preview; keep the source intact.
+.cover--trimmed img {
+  position: relative;
+  top: calc(-1 * var(--cover-inset));
+  height: calc(100% + var(--cover-inset));
+}
+
 .title {
   color: var(--ink);
   font-size: 19px;

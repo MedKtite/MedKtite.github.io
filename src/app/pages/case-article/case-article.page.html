@@ -1,5 +1,8 @@
-<article class="article">
+<article class="article" [class.article--service]="article.layout === 'service'">
   <header class="article-header" [class.article-header--product]="article.subtitle">
+    @if (article.eyebrow) {
+      <p class="article-eyebrow">{{ i18n.t(article.eyebrow) }}</p>
+    }
     <h1 class="article-title">{{ i18n.t(article.title) }}</h1>
     @if (article.subtitle) {
       <p class="article-subtitle">{{ i18n.t(article.subtitle) }}</p>
@@ -15,6 +18,21 @@
       <h2>{{ i18n.t(section.title) }}</h2>
       @for (paragraph of section.paragraphs; track $index) {
         <p>{{ i18n.t(paragraph) }}</p>
+      }
+      @for (block of section.blocks ?? []; track $index) {
+        @if (block.heading) { <h3>{{ i18n.t(block.heading) }}</h3> }
+        @if (block.paragraph) { <p>{{ i18n.t(block.paragraph) }}</p> }
+        @if (block.figure) {
+          <ng-container *ngTemplateOutlet="figure; context: { $implicit: block.figure, eager: false }"></ng-container>
+        }
+        @if (block.panel) {
+          <div class="architecture-panel">
+            @for (item of block.panel; track $index) {
+              <h3>{{ i18n.t(item.title) }}</h3>
+              <p>{{ i18n.t(item.body) }}</p>
+            }
+          </div>
+        }
       }
       @if (section.link; as link) {
         <a class="article-link" [href]="link.href" target="_blank" rel="noopener"

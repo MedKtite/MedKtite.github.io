@@ -1,3 +1,5 @@
+import { ANCORA_ARTICLE } from './ancora';
+
 // ==============================================================================
 // Portfolio content (Figma file wZ1jyt3CQqqzOmgHZY4BfH, page 98:2)
 // Every user-facing string carries an English and a French version.
@@ -56,6 +58,8 @@ export interface CaseStudy {
   cover: string;
   // Transparent artwork is centred on this background instead of filling the frame.
   coverBackground?: string;
+  // Trim capture chrome from a card preview without changing the article asset.
+  coverTopInset?: number;
   // Set when the study has its own article page.
   path?: string;
 }
@@ -89,7 +93,15 @@ export interface ArticleScreenPair {
   caption: Localized;
 }
 
+export interface ArticleBlock {
+  heading?: Localized;
+  paragraph?: Localized;
+  figure?: ArticleFigure;
+  panel?: { title: Localized; body: Localized }[];
+}
+
 export interface ArticleSection {
+  blocks?: ArticleBlock[];
   title: Localized;
   paragraphs: Localized[];
   figures?: ArticleFigure[];
@@ -98,6 +110,8 @@ export interface ArticleSection {
 }
 
 export interface CaseArticle {
+  layout?: 'service';
+  eyebrow?: Localized;
   slug: string;
   title: Localized;
   // A product subtitle switches the opening to the larger title treatment (Figma 124:46).
@@ -133,7 +147,6 @@ const IMG = {
   telecomaroc: 'assets/images/telecomaroc.png',
   marginalia: 'assets/images/marginalia.png',
   dwaya: 'assets/images/dwaya.png',
-  al9anat: 'assets/images/al9anat.png',
 };
 
 const ANALYTIX_APP_STORE = 'https://apps.apple.com/ma/app/analytix/id6753986118';
@@ -157,8 +170,8 @@ export const PROFILE = {
     fr: 'N’hésitez pas à me contacter via l’un des canaux ci-dessous.',
   } satisfies Localized,
   credit: {
-    en: 'Built with care, in Casablanca',
-    fr: 'Fait avec soin, à Casablanca',
+    en: 'Built with KTITE, in Casablanca',
+    fr: 'Fait avec KTITE, à Casablanca',
   } satisfies Localized,
 };
 
@@ -196,7 +209,7 @@ export const PROJECTS: Project[] = [
   {
     name: 'MaConformite',
     status: 'live',
-    tagline: { en: 'Anti-Money Laundering Compliance', fr: 'Conformité anti-blanchiment' },
+    tagline: { en: 'AML-CFT Compliance Solution', fr: 'Solution de conformité LBC-FT' },
     description: {
       en: 'AML compliance for Moroccan accounting firms under law 43-05: sanctions and PEP screening, KYC, and ready-made reports for ANRF inspections.',
       fr: 'La conformité LBC pour les cabinets comptables marocains au titre de la loi 43-05 : filtrage sanctions et PPE, KYC et rapports prêts pour les contrôles de l’ANRF.',
@@ -230,18 +243,6 @@ export const PROJECTS: Project[] = [
     links: [],
   },
   {
-    name: 'Al9anat',
-    status: 'live',
-    tagline: { en: 'High-Concurrency Content & Video Hub', fr: 'Plateforme de contenus et vidéos à forte charge' },
-    description: {
-      en: 'Scalable digital media platform and interactive content streaming network. Streams live video with sub-second latency across web and mobile, with content directory indexing.',
-      fr: 'Plateforme média évolutive et réseau de diffusion de contenus interactifs. Vidéo en direct avec une latence inférieure à la seconde sur web et mobile, et indexation de l’annuaire des contenus.',
-    },
-    stack: ['Edge CDN', 'HLS Video', 'High Scale'],
-    platform: 'Web, Mobile',
-    links: [{ label: VISIT, href: 'https://al9anat.com' }],
-  },
-  {
     name: 'Analytix Mobile',
     status: 'live',
     tagline: { en: 'Real-Time App Telemetry & Cohorts', fr: 'Télémétrie et cohortes en temps réel' },
@@ -257,14 +258,17 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    name: 'Telecomaroc',
+    name: 'Teleco Maroc',
     status: 'live',
-    tagline: { en: 'Morocco Telecom Guide & Comparator', fr: 'Guide et comparateur télécom au Maroc' },
-    description: {
-      en: 'The leading digital benchmark and consumer portal for Moroccan telecom services. Independent network coverage checks, real-time Fibre/4G/5G rate plan comparisons, and ISP guides.',
-      fr: 'Le portail de référence des services télécom au Maroc : vérification indépendante de la couverture réseau, comparaison en temps réel des offres Fibre/4G/5G et guides des fournisseurs d’accès.',
+    tagline: {
+      en: 'Your trusted partner for network and telecommunications solutions',
+      fr: 'Votre partenaire de confiance pour les solutions réseaux et télécommunications',
     },
-    stack: ['Plan Compare', 'Coverage Map', 'High Traffic'],
+    description: {
+      en: 'Corporate website and e-commerce platform for Groupe Teleco Maroc, showcasing its expertise in network infrastructure, telecommunications and IT security, with a product catalog, order management and secure payment.',
+      fr: 'Site institutionnel et plateforme e-commerce du Groupe Teleco Maroc, mettant en valeur son expertise en infrastructures réseau, télécommunications et sécurité informatique : catalogue produits, gestion des commandes et paiement sécurisé.',
+    },
+    stack: ['E-commerce', 'Corporate Site', 'SEO'],
     platform: 'Web',
     links: [],
   },
@@ -488,6 +492,16 @@ export const TECHNOLOGIES: string[] = [
 ];
 
 export const CASE_STUDIES: CaseStudy[] = [
+  {
+    title: { en: 'Ancora: US LLC formation from Morocco', fr: 'Ancora : créer une LLC américaine depuis le Maroc' },
+    summary: {
+      en: 'From service research to a client platform: formation, documents, support and operational handoffs.',
+      fr: 'De l’étude du service à la plateforme client : création, documents, assistance et relais opérationnels.',
+    },
+    cover: 'assets/case-studies/ancora/landing.png',
+    coverTopInset: 3.5,
+    path: '/case-studies/ancora',
+  },
   {
     title: {
       en: 'Analytix Mobile: from prototype to app store',
@@ -909,7 +923,7 @@ export const ANALYTIX_ARTICLE: CaseArticle = {
   ],
 };
 
-export const CASE_ARTICLES: CaseArticle[] = [MACONFORMITE_ARTICLE, ANALYTIX_ARTICLE];
+export const CASE_ARTICLES: CaseArticle[] = [MACONFORMITE_ARTICLE, ANALYTIX_ARTICLE, ANCORA_ARTICLE];
 
 export const ABOUT_INTRO: Localized[] = [
   {
@@ -969,7 +983,7 @@ export const FOLDERS: FolderLink[] = [
     path: '/work',
     label: { en: 'Selected Work', fr: 'Projets choisis' },
     shape: 'landscape',
-    thumbs: [{ image: IMG.telecomaroc }, { image: IMG.maconformite }, { image: IMG.al9anat }],
+    thumbs: [{ image: IMG.telecomaroc }, { image: IMG.maconformite }, { image: IMG.analytix }],
   },
   {
     path: '/experience',
@@ -985,7 +999,7 @@ export const FOLDERS: FolderLink[] = [
     path: '/case-studies',
     label: { en: 'Case Studies', fr: 'Études de cas' },
     shape: 'landscape',
-    thumbs: [{ image: IMG.analytix }, { image: IMG.maconformite }],
+    thumbs: [{ image: IMG.analytix }, { image: IMG.maconformite }, { image: 'assets/case-studies/ancora/landing.png' }],
   },
   {
     path: '/about',
