@@ -1,0 +1,35 @@
+name: Build contact backend image
+
+on:
+  push:
+    branches:
+      - main
+      - redesign/folder-concept
+    paths:
+      - '.github/workflows/contact-image.yml'
+      - 'backend/Dockerfile'
+      - 'backend/.dockerignore'
+      - 'backend/*.cjs'
+      - 'backend/package*.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Build Linux image
+        run: docker build --platform linux/amd64 --tag portfolio-contact:latest backend
+      - name: Save image
+        run: docker image save portfolio-contact:latest | gzip > portfolio-contact.tar.gz
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-contact-linux-amd64
+          path: portfolio-contact.tar.gz
+          if-no-files-found: error
