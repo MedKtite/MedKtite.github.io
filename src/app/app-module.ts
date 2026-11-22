@@ -3,6 +3,7 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 import { RouterModule } from '@angular/router';
 
 import { App } from './app';
+import { SonarBackgroundComponent } from './layout/sonar-background/sonar-background.component';
 import { routes } from './app.routes';
 import { SiteHeaderComponent } from './layout/site-header/site-header.component';
 import { SiteFooterComponent } from './layout/site-footer/site-footer.component';
@@ -31,6 +32,7 @@ import { CaseArticlePage } from './pages/case-article/case-article.page';
   ],
   imports: [
     BrowserModule,
+    SonarBackgroundComponent,
     RouterModule.forRoot(routes, {
       enableViewTransitions: true,
       scrollPositionRestoration: 'top',

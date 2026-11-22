@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-contact-server",
+  "private": true,
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.cjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemailer": "^10.6.1"
+  }
+}

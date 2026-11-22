@@ -761,12 +761,12 @@ export const ANALYTIX_ARTICLE: CaseArticle = {
     fr: 'Informations d’entreprise et suivi des risques sur Android et iOS',
   },
   intro: {
-    en: 'Analytix is Inforisk’s mobile app for checking Moroccan companies. It brings company records, risk indicators, compliance checks, and portfolio alerts into a mobile workflow.',
-    fr: 'Analytix est l’application mobile d’Inforisk pour vérifier les entreprises marocaines. Elle réunit fiches d’entreprise, indicateurs de risque, contrôles de conformité et alertes de portefeuille dans un parcours mobile.',
+    en: 'Analytix is a mobile app for checking Moroccan companies. It brings company records, risk indicators, compliance checks, and portfolio alerts into a mobile workflow. Identifying details are redacted in the screenshots.',
+    fr: 'Analytix est une application mobile pour vérifier les entreprises marocaines. Elle réunit fiches d’entreprise, indicateurs de risque, contrôles de conformité et alertes de portefeuille dans un parcours mobile. Les informations identifiantes sont masquées dans les captures d’écran.',
   },
   role: {
-    en: 'Mobile developer at Inforisk  ·  Figma, Flutter, Dart, Spring Boot',
-    fr: 'Développeur mobile chez Inforisk  ·  Figma, Flutter, Dart, Spring Boot',
+    en: 'Mobile developer  ·  Figma, Flutter, Dart, Spring Boot',
+    fr: 'Développeur mobile  ·  Figma, Flutter, Dart, Spring Boot',
   },
   hero: {
     src: `${AX}/devices.png`,
@@ -889,8 +889,8 @@ export const ANALYTIX_ARTICLE: CaseArticle = {
       title: { en: 'My role', fr: 'Mon rôle' },
       paragraphs: [
         {
-          en: 'At Inforisk, I took the mobile app from early Figma prototypes to production. I built the Flutter interface, connected it to Spring Boot REST APIs, and implemented push notifications for portfolio updates.',
-          fr: 'Chez Inforisk, j’ai mené l’application mobile des premiers prototypes Figma jusqu’à la production. J’ai développé l’interface Flutter, l’ai connectée aux API REST Spring Boot et mis en place les notifications push pour les mises à jour du portefeuille.',
+          en: 'I took the mobile app from early Figma prototypes to production. I built the Flutter interface, connected it to Spring Boot REST APIs, and implemented push notifications for portfolio updates.',
+          fr: 'J’ai mené l’application mobile des premiers prototypes Figma jusqu’à la production. J’ai développé l’interface Flutter, l’ai connectée aux API REST Spring Boot et mis en place les notifications push pour les mises à jour du portefeuille.',
         },
         {
           en: 'The mobile work included managing search, results, company detail, and alerts across the shared Android and iOS codebase. I also handled configuration, versioning, and release submissions for both stores.',
@@ -1040,9 +1040,11 @@ export const UI = {
     fr: 'Dites-m’en un peu plus sur votre projet.',
   },
   contactSend: { en: 'Send message', fr: 'Envoyer le message' },
-  contactSendNote: {
-    en: 'Opens your email app with the message filled in.',
-    fr: 'Ouvre votre messagerie avec le message prérempli.',
+  contactSending: { en: 'Sending…', fr: 'Envoi en cours…' },
+  contactSent: { en: 'Message sent.', fr: 'Message envoyé.' },
+  contactError: {
+    en: 'Could not send your message. Try again or use the email link.',
+    fr: 'Impossible d’envoyer votre message. Réessayez ou utilisez le lien e-mail.',
   },
   contactDefaultSubject: { en: 'Hello from your portfolio', fr: 'Bonjour depuis votre portfolio' },
   aboutTitle: { en: 'About me', fr: 'À propos de moi' },

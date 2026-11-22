@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { vi } from 'vitest';
 import { AppModule } from './app-module';
 import { App } from './app';
 
@@ -89,5 +90,48 @@ describe('App', () => {
     expect(panels[1].querySelectorAll('.credential').length).toBe(6);
     expect(compiled.querySelectorAll('.tech').length).toBe(14);
     expect(compiled.querySelectorAll('.contact-form [required]').length).toBe(3);
+  });
+
+  it('should submit the contact form and keep the message available after a failed attempt', async () => {
+    const fixture = TestBed.createComponent(App);
+    await TestBed.inject(Router).navigateByUrl('/about');
+    fixture.detectChanges();
+
+    const form = fixture.nativeElement.querySelector('.contact-form') as HTMLFormElement;
+    const name = form.elements.namedItem('name') as HTMLInputElement;
+    const email = form.elements.namedItem('email') as HTMLInputElement;
+    const message = form.elements.namedItem('message') as HTMLTextAreaElement;
+    const fetchMock = vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(new Response(null, { status: 502 }))
+      .mockResolvedValueOnce(Response.json({ ok: true }));
+
+    try {
+      name.value = 'Example Visitor';
+      email.value = 'visitor@example.com';
+      message.value = 'Hello from the portfolio.';
+      form.requestSubmit();
+      await fixture.whenStable();
+      fixture.detectChanges();
+      expect(form.querySelector('[role="status"]')?.textContent).toContain('Could not send');
+      expect(message.value).toBe('Hello from the portfolio.');
+
+      form.requestSubmit();
+      await fixture.whenStable();
+      fixture.detectChanges();
+      expect(fetchMock).toHaveBeenLastCalledWith('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Example Visitor',
+          email: 'visitor@example.com',
+          subject: 'Hello from your portfolio',
+          message: 'Hello from the portfolio.',
+        }),
+      });
+      expect(form.querySelector('[role="status"]')?.textContent).toContain('Message sent.');
+      expect(message.value).toBe('');
+    } finally {
+      fetchMock.mockRestore();
+    }
   });
 });

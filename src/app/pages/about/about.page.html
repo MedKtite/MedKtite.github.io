@@ -55,7 +55,7 @@
         <div class="field-row">
           <label class="field">
             <span class="field-label">{{ i18n.t(ui.contactName) }}</span>
-            <input name="name" type="text" autocomplete="name" required [placeholder]="i18n.t(ui.contactNamePlaceholder)" />
+            <input name="name" type="text" autocomplete="name" maxlength="100" [readOnly]="contactStatus() === 'sending'" required [placeholder]="i18n.t(ui.contactNamePlaceholder)" />
           </label>
           <label class="field">
             <span class="field-label">{{ i18n.t(ui.contactEmail) }}</span>
@@ -63,6 +63,8 @@
               name="email"
               type="email"
               autocomplete="email"
+              maxlength="254"
+              [readOnly]="contactStatus() === 'sending'"
               required
               [placeholder]="i18n.t(ui.contactEmailPlaceholder)"
             />
@@ -70,15 +72,22 @@
         </div>
         <label class="field">
           <span class="field-label">{{ i18n.t(ui.contactSubject) }}</span>
-          <input name="subject" type="text" [placeholder]="i18n.t(ui.contactSubjectPlaceholder)" />
+          <input name="subject" type="text" maxlength="150" [readOnly]="contactStatus() === 'sending'" [placeholder]="i18n.t(ui.contactSubjectPlaceholder)" />
         </label>
         <label class="field">
           <span class="field-label">{{ i18n.t(ui.contactMessage) }}</span>
-          <textarea name="message" rows="4" required [placeholder]="i18n.t(ui.contactMessagePlaceholder)"></textarea>
+          <textarea name="message" rows="4" maxlength="4000" [readOnly]="contactStatus() === 'sending'" required [placeholder]="i18n.t(ui.contactMessagePlaceholder)"></textarea>
         </label>
         <div class="form-actions">
-          <button type="submit" class="send-button">{{ i18n.t(ui.contactSend) }}</button>
-          <p class="send-note">{{ i18n.t(ui.contactSendNote) }}</p>
+          <button type="submit" class="send-button" [disabled]="contactStatus() === 'sending'">
+            {{ i18n.t(contactStatus() === 'sending' ? ui.contactSending : ui.contactSend) }}
+          </button>
+          <p class="send-note" role="status">
+            @switch (contactStatus()) {
+              @case ('sent') { {{ i18n.t(ui.contactSent) }} }
+              @case ('error') { {{ i18n.t(ui.contactError) }} }
+            }
+          </p>
         </div>
       </form>
     </div>
